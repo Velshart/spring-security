@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registered users</title>
+</head>
+<body>
+
+<h1>Registered users:</h1>
+
+<table>
+
+    <thead>
+
+    <tr>
+        <th>username</th>
+        <th>password</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr th:each = "user: ${users}">
+        <td th:text = "${user.firstName}"></td>
+        <td th:text = "${user.password}"></td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>
