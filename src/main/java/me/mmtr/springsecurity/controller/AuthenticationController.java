@@ -15,10 +15,10 @@ import java.util.List;
 
 @Controller
 public class AuthenticationController {
-    private final UserService userService;
+    private final UserService USER_SERVICE;
 
     public AuthenticationController(UserService userService) {
-        this.userService = userService;
+        this.USER_SERVICE = userService;
     }
 
     @GetMapping("/login")
@@ -54,7 +54,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") UserDTO userDTO, BindingResult bindingResult, Model model) {
-        User existingUser = userService.findUserByUsername(userDTO.getUsername());
+        User existingUser = USER_SERVICE.findUserByUsername(userDTO.getUsername());
 
         if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             bindingResult.rejectValue("username", "exists", "This username is already in use");
@@ -65,13 +65,13 @@ public class AuthenticationController {
             return "register";
         }
 
-        userService.saveUser(userDTO);
+        USER_SERVICE.saveUser(userDTO);
         return "redirect:/login";
     }
 
     @GetMapping("/users")
     public String users(Model model) {
-        List<UserDTO> userDTOs = userService.findAllUsers();
+        List<UserDTO> userDTOs = USER_SERVICE.findAllUsers();
 
         model.addAttribute("users", userDTOs);
         return "users";
