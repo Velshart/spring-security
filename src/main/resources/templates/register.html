@@ -15,6 +15,7 @@
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" th:field="*{username}" required />
+        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
     </div>
 
 

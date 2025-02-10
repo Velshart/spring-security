@@ -16,13 +16,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SpringSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorizeRequests) -> {
-                    authorizeRequests.requestMatchers("/register").permitAll()
-                            .requestMatchers("/login").permitAll()
-                            .requestMatchers("/admin").hasAuthority("ADMIN")
-                            .anyRequest().authenticated();
-
-                }).formLogin(formLogin -> {
+        http.authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+                .requestMatchers("/register").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/admin").hasAuthority("ADMIN")
+                .anyRequest().authenticated()).formLogin(formLogin -> {
                     formLogin.loginPage("/login")
                             .successHandler(new LoginSuccessHandler())
                             .permitAll();
